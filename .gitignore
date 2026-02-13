@@ -1,0 +1,10 @@
+# Secrets
+esphome/secrets.yaml
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Docker
+*.log
