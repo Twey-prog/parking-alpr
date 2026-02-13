@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "frontend.user_data_8735b68ba05c43c2b33573061e86308d",
+  "data": {
+    "language": {
+      "language": "fr",
+      "number_format": "language",
+      "time_format": "language",
+      "date_format": "language",
+      "time_zone": "local",
+      "first_weekday": "language"
+    },
+    "core": {
+      "showAdvanced": true,
+      "showEntityIdPicker": true
+    }
+  }
+}

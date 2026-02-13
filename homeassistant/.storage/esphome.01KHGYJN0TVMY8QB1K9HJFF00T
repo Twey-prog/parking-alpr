@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "esphome.01KHGYJN0TVMY8QB1K9HJFF00T",
+  "data": {
+    "device_info": {
+      "uses_password": false,
+      "name": "esp-scanner",
+      "friendly_name": "esp-scanner",
+      "mac_address": "94:54:C5:AA:03:58",
+      "compilation_time": "2026-02-15 16:10:20 +0000",
+      "model": "esp32cam",
+      "manufacturer": "Espressif",
+      "has_deep_sleep": false,
+      "esphome_version": "2026.1.5",
+      "project_name": "",
+      "project_version": "",
+      "webserver_port": 0,
+      "legacy_voice_assistant_version": 0,
+      "voice_assistant_feature_flags": 0,
+      "legacy_bluetooth_proxy_version": 0,
+      "bluetooth_proxy_feature_flags": 0,
+      "zwave_proxy_feature_flags": 0,
+      "zwave_home_id": 0,
+      "suggested_area": "",
+      "bluetooth_mac_address": "",
+      "api_encryption_supported": true,
+      "devices": [],
+      "areas": [],
+      "area": {
+        "area_id": 0,
+        "name": ""
+      }
+    },
+    "services": [],
+    "api_version": {
+      "major": 1,
+      "minor": 14
+    },
+    "sensor": [
+      {
+        "object_id": "esp32_wifi_signal",
+        "key": 812068683,
+        "name": "ESP32 WiFi Signal",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 2,
+        "device_id": 0,
+        "device_class": "signal_strength",
+        "unit_of_measurement": "dBm",
+        "accuracy_decimals": 0,
+        "force_update": false,
+        "state_class": 1,
+        "legacy_last_reset_type": 0
+      }
+    ],
+    "text_sensor": [],
+    "camera": [
+      {
+        "object_id": "parking_camera",
+        "key": 2257275687,
+        "name": "Parking Camera",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0
+      }
+    ],
+    "light": [
+      {
+        "object_id": "esp32-cam_flash",
+        "key": 487452969,
+        "name": "ESP32-CAM Flash",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "supported_color_modes": [
+          1
+        ],
+        "min_mireds": 0.0,
+        "max_mireds": 0.0,
+        "effects": [],
+        "legacy_supports_brightness": false,
+        "legacy_supports_rgb": false,
+        "legacy_supports_white_value": false,
+        "legacy_supports_color_temperature": false
+      }
+    ]
+  }
+}

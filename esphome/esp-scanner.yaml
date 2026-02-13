@@ -1,0 +1,91 @@
+esphome:
+  name: esp-scanner
+  friendly_name: esp-scanner
+
+esp32:
+  board: esp32cam
+  framework:
+    type: esp-idf
+psram:
+  mode: quad
+  speed: 80MHz
+
+# Logging
+logger:
+
+# Home Assistant API
+api:
+  encryption:
+    key: !secret api_key
+
+# OTA update
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret falback_ssi
+  password: !secret fallback_password
+
+  ap:
+    ssid: !secret falback_ssi
+    password: !secret fallback_password
+
+captive_portal:
+
+# Status LED (flash LED)
+output:
+  - platform: gpio
+    pin: 4
+    id: gpio_4
+
+light:
+  - platform: binary
+    name: "ESP32-CAM Flash"
+    output: gpio_4
+
+# Camera configuration (AI-Thinker ESP32-CAM)
+esp32_camera:
+  name: Parking Camera
+  external_clock:
+    pin: GPIO0
+    frequency: 20MHz
+
+  i2c_pins:
+    sda: GPIO26
+    scl: GPIO27
+
+  data_pins:
+    - GPIO5
+    - GPIO18
+    - GPIO19
+    - GPIO21
+    - GPIO36
+    - GPIO39
+    - GPIO34
+    - GPIO35
+
+  vsync_pin: GPIO25
+  href_pin: GPIO23
+  pixel_clock_pin: GPIO22
+
+  power_down_pin: GPIO32
+
+  resolution: 640x480
+  jpeg_quality: 10
+  max_framerate: 10 fps
+  idle_framerate: 0.1 fps
+
+  vertical_flip: false
+  horizontal_mirror: false
+
+# Camera web server for streaming
+esp32_camera_web_server:
+  - port: 8080
+    mode: stream
+
+# Sensors
+sensor:
+  - platform: wifi_signal
+    name: "ESP32 WiFi Signal"
+    update_interval: 60s

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "core.restore_state",
+  "data": [
+    {
+      "state": {"entity_id":"conversation.home_assistant","state":"unknown","attributes":{"friendly_name":"Home Assistant","supported_features":1},"last_changed":"2026-02-15T15:18:14.080466+00:00","last_reported":"2026-02-15T15:18:14.080466+00:00","last_updated":"2026-02-15T15:18:14.080466+00:00","context":{"id":"01KHGY2ZT0MJ73GPHN6E0MH9NX","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-02-15T17:18:15.163509+00:00"
+    },
+    {
+      "state": {"entity_id":"event.backup_automatic_backup","state":"unknown","attributes":{"event_types":["completed","failed","in_progress"],"event_type":null,"friendly_name":"Backup Sauvegarde automatique"},"last_changed":"2026-02-15T15:18:14.137826+00:00","last_reported":"2026-02-15T15:18:14.137826+00:00","last_updated":"2026-02-15T15:18:14.137826+00:00","context":{"id":"01KHGY2ZVS1NX65Y0F66A14YDR","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "last_event_type": null,
+        "last_event_attributes": null
+      },
+      "last_seen": "2026-02-15T17:18:15.163509+00:00"
+    },
+    {
+      "state": {"entity_id":"person.theo","state":"unknown","attributes":{"editable":true,"id":"theo","device_trackers":[],"user_id":"8735b68ba05c43c2b33573061e86308d","friendly_name":"Theo"},"last_changed":"2026-02-15T15:18:14.436092+00:00","last_reported":"2026-02-15T15:18:15.152383+00:00","last_updated":"2026-02-15T15:18:15.152383+00:00","context":{"id":"01KHGY30VGEER956JKM2CNXDNA","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-02-15T17:18:15.163509+00:00"
+    },
+    {
+      "state": {"entity_id":"tts.google_translate_en_com","state":"unknown","attributes":{"friendly_name":"Google Translate en com"},"last_changed":"2026-02-15T15:18:14.985339+00:00","last_reported":"2026-02-15T15:18:14.985339+00:00","last_updated":"2026-02-15T15:18:14.985339+00:00","context":{"id":"01KHGY30P9JG3GWERAAH342CBV","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-02-15T17:18:15.163509+00:00"
+    }
+  ]
+}

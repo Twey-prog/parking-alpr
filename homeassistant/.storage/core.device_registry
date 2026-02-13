@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "minor_version": 12,
+  "key": "core.device_registry",
+  "data": {
+    "devices": [
+      {"area_id":null,"config_entries":["01KHGT7VP4Y66KGMD0WF4HY8M1"],"config_entries_subentries":{"01KHGT7VP4Y66KGMD0WF4HY8M1":[null]},"configuration_url":null,"connections":[],"created_at":"2026-02-15T14:10:59.399468+00:00","disabled_by":null,"entry_type":"service","hw_version":null,"id":"37617c0653f6f7c5d06c70cee57196b8","identifiers":[["sun","01KHGT7VP4Y66KGMD0WF4HY8M1"]],"labels":[],"manufacturer":null,"model":null,"model_id":null,"modified_at":"2026-02-15T14:10:59.399521+00:00","name_by_user":null,"name":"Sun","primary_config_entry":"01KHGT7VP4Y66KGMD0WF4HY8M1","serial_number":null,"sw_version":null,"via_device_id":null},
+      {"area_id":null,"config_entries":["01KHGT7W01G33Y3MWD7AB765GW"],"config_entries_subentries":{"01KHGT7W01G33Y3MWD7AB765GW":[null]},"configuration_url":"homeassistant://config/backup","connections":[],"created_at":"2026-02-15T14:10:59.936238+00:00","disabled_by":null,"entry_type":"service","hw_version":null,"id":"a671c1f669de3701b7e0837425e7fff0","identifiers":[["backup","backup_manager"]],"labels":[],"manufacturer":"Home Assistant","model":"Home Assistant Backup","model_id":null,"modified_at":"2026-02-15T14:10:59.936323+00:00","name_by_user":null,"name":"Backup","primary_config_entry":"01KHGT7W01G33Y3MWD7AB765GW","serial_number":null,"sw_version":"2026.2.2","via_device_id":null},
+      {"area_id":null,"config_entries":["01KHGWNZ3EYMQ4E1HMST1JFXW2"],"config_entries_subentries":{"01KHGWNZ3EYMQ4E1HMST1JFXW2":[null]},"configuration_url":"https://www.met.no/en","connections":[],"created_at":"2026-02-15T14:53:39.160649+00:00","disabled_by":null,"entry_type":"service","hw_version":null,"id":"aac09e6b37ff6e9b67594ae58d4e9254","identifiers":[["met","01KHGWNZ3EYMQ4E1HMST1JFXW2"]],"labels":[],"manufacturer":"Met.no","model":"Forecast","model_id":null,"modified_at":"2026-02-15T14:53:39.160692+00:00","name_by_user":null,"name":"Forecast","primary_config_entry":"01KHGWNZ3EYMQ4E1HMST1JFXW2","serial_number":null,"sw_version":null,"via_device_id":null},
+      {"area_id":null,"config_entries":["01KHGYJN0TVMY8QB1K9HJFF00T"],"config_entries_subentries":{"01KHGYJN0TVMY8QB1K9HJFF00T":[null]},"configuration_url":null,"connections":[["mac","94:54:c5:aa:03:58"]],"created_at":"2026-02-15T15:26:47.579523+00:00","disabled_by":null,"entry_type":null,"hw_version":null,"id":"76c2d197be0d8b05011d1ddad5ca55b5","identifiers":[],"labels":[],"manufacturer":"Espressif","model":"esp32cam","model_id":null,"modified_at":"2026-02-15T16:13:00.750749+00:00","name_by_user":null,"name":"esp-scanner","primary_config_entry":"01KHGYJN0TVMY8QB1K9HJFF00T","serial_number":null,"sw_version":"2026.1.5 (2026-02-15 16:10:20 +0000)","via_device_id":null}
+    ],
+    "deleted_devices": []
+  }
+}
