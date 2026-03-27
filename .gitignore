@@ -20,6 +20,9 @@ frigate/exports/
 frigate/recordings/
 *.webp
 
+# ESPHome build/cache
+esphome/.esphome/
+
 # Mosquitto runtime
 mosquitto/data/
 mosquitto/log/
