@@ -1,0 +1,54 @@
+envoyer_disponibilite_parking_firebase:
+  alias: Envoyer disponibilite parking vers Firebase
+  mode: single
+  fields:
+    parking_id:
+      name: Identifiant parking
+      description: Exemple p1, p2
+      required: false
+      selector:
+        text:
+    total:
+      name: Nombre total de places
+      required: false
+      selector:
+        number:
+          min: 0
+          mode: box
+    occupees:
+      name: Nombre de places occupees
+      required: false
+      selector:
+        number:
+          min: 0
+          mode: box
+  sequence:
+    - service: rest_command.firebase_parking_disponibilite
+      data:
+        parking_id: "{{ parking_id | default(states('input_text.parking_id_firebase'), true) }}"
+        total: "{{ (total | default(states('input_number.parking_total_places_firebase'), true)) | int }}"
+        occupees: "{{ (occupees | default(states('input_number.parking_places_occupees_firebase'), true)) | int }}"
+
+envoyer_alerte_remplissage_parking_firebase:
+  alias: Envoyer alerte remplissage parking vers Firebase
+  mode: single
+  fields:
+    parking_id:
+      name: Identifiant parking
+      description: Exemple p1, p2
+      required: false
+      selector:
+        text:
+    taux:
+      name: Taux d'occupation en pourcentage
+      required: false
+      selector:
+        number:
+          min: 0
+          max: 100
+          mode: box
+  sequence:
+    - service: rest_command.firebase_parking_notification
+      data:
+        parking_id: "{{ parking_id | default(states('input_text.parking_id_firebase'), true) }}"
+        taux: "{{ (taux | default(states('input_number.parking_taux_firebase'), true)) | int }}"
