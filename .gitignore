@@ -12,7 +12,9 @@ homeassistant/*.db
 homeassistant/*.db-shm
 homeassistant/*.db-wal
 homeassistant/*.log
+homeassistant/home-assistant.log*
 homeassistant/.ha_run.lock
+homeassistant/.HA_VERSION
 
 # Frigate media/cache
 frigate/media/
@@ -31,3 +33,6 @@ mosquitto/log/
 .venv/
 __pycache__/
 *.pyc
+
+# Local bridge logs
+parking-alpr/*.log
