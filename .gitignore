@@ -1,0 +1,29 @@
+# Secrets and env
+.env
+*.env
+secrets.yaml
+**/secrets.yaml
+parking-alpr/firebase-service-account.json
+parking-alpr/.env
+
+# Home Assistant runtime/state
+homeassistant/.storage/
+homeassistant/*.db
+homeassistant/*.db-shm
+homeassistant/*.db-wal
+homeassistant/*.log
+homeassistant/.ha_run.lock
+
+# Frigate media/cache
+frigate/media/
+frigate/exports/
+frigate/recordings/
+
+# Mosquitto runtime
+mosquitto/data/
+mosquitto/log/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
