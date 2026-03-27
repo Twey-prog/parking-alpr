@@ -18,6 +18,7 @@ homeassistant/.ha_run.lock
 frigate/media/
 frigate/exports/
 frigate/recordings/
+*.webp
 
 # Mosquitto runtime
 mosquitto/data/
