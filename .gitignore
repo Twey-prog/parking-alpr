@@ -33,6 +33,10 @@ mosquitto/log/
 .venv/
 __pycache__/
 *.pyc
+parking-alpr/*.sqlite3
+parking-alpr/*.sqlite3-shm
+parking-alpr/*.sqlite3-wal
+parking-alpr/*.db
 
 # Local bridge logs
 parking-alpr/*.log

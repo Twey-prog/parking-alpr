@@ -64,7 +64,25 @@ services:
     networks:
       - parking_net
 
-
+  parking-alpr:
+    build:
+      context: ./parking-alpr
+    container_name: parking-alpr
+    restart: unless-stopped
+    depends_on:
+      - mosquitto
+    ports:
+      - "${ALPR_API_PORT:-5001}:5001"
+    environment:
+      PORT: 5001
+      FIREBASE_SERVICE_ACCOUNT_FILE: /config/firebase-service-account.json
+      ALPR_DB_FILE: /config/parking.sqlite3
+      ALPR_DEFAULT_PARKING_ID: ${ALPR_DEFAULT_PARKING_ID:-p1}
+      ALPR_DEFAULT_TOTAL_PLACES: ${ALPR_DEFAULT_TOTAL_PLACES:-100}
+    volumes:
+      - ./parking-alpr:/config
+    networks:
+      - parking_net
 
 networks:
   parking_net:
