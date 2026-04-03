@@ -9,6 +9,7 @@ Le système est composé de plusieurs services Docker :
 - **Mosquitto** : Broker MQTT pour la communication entre services
 - **Frigate** : Traitement vidéo et détection d'objets
 - **Home Assistant** : Interface d'automatisation et de contrôle
+- **Service ALPR Python** : Base SQLite des plaques + synchronisation Firebase
 - **CodeProject.AI** : Reconnaissance de plaques d'immatriculation
 
 ## Qu'est-ce qu'ESPHome ?
@@ -55,6 +56,9 @@ docker pull ghcr.io/blakeblackshear/frigate:stable && docker system prune -f
 docker pull ghcr.io/home-assistant/home-assistant:stable && docker system prune -f
 docker pull codeproject/ai-server:latest && docker system prune -f
 
+# Construire et démarrer le service ALPR Python
+docker compose build parking-alpr
+
 # Démarrer tous les services
 docker compose up -d
 
@@ -76,6 +80,47 @@ wifi_ssid: "VOTRE_WIFI"
 wifi_password: "VOTRE_MOT_DE_PASSE"
 api_key: "VOTRE_CLE_API"
 ota_password: "VOTRE_MOT_DE_PASSE_OTA"
+```
+
+### 4. Configurer Home Assistant pour l'ALPR
+
+Le flux de reconnaissance de plaque passe par webhook Home Assistant puis le service Python local:
+
+1. Un script OpenALPR envoie la plaque au webhook Home Assistant `alpr_p1_plate`.
+2. Home Assistant reçoit l'événement et appelle le service `POST /plates/scan`.
+3. Le service Python enregistre ou supprime la plaque dans SQLite.
+4. Si la plaque existe déjà, elle est retirée et le taux d'occupation est décrémenté.
+
+Le stockage local est exposé via le capteur REST `sensor.parking_alpr_state`.
+
+Pour publier une plaque manuellement pendant les tests (webhook):
+
+```bash
+curl -X POST http://localhost:8123/api/webhook/alpr_p1_plate \
+	-H 'Content-Type: application/json' \
+	-d '{"plate":"AB123CD"}'
+```
+
+Option MQTT (si l'intégration MQTT est configurée dans Home Assistant UI):
+
+```bash
+docker exec -it mosquitto mosquitto_pub -t parking/p1/alpr/plate -m "AB123CD"
+```
+
+Exemple avec le script OpenALPR local:
+
+```bash
+python parking-alpr/openalpr_to_mqtt.py \
+	--image /chemin/vers/image.jpg \
+	--ha-webhook-url http://localhost:8123/api/webhook/alpr_p1_plate
+```
+
+Endpoint direct du service ALPR:
+
+```bash
+curl -X POST http://localhost:5001/plates/scan \
+	-H 'Content-Type: application/json' \
+	-d '{"parking_id":"p1","plate":"AB123CD"}'
 ```
 ## Commandes ESPHome
 ### Compiler le firmware
@@ -121,6 +166,7 @@ Vous pouvez aussi accéder à l'interface web ESPHome :
 - **Home Assistant** : http://localhost:8123
 - **ESPHome** : http://localhost:6052
 - **Frigate** : http://localhost:5000
+- **Service ALPR Python** : http://localhost:5001
 - **CodeProject.AI** : http://localhost:32168
 - **ESP32-CAM** : http://[IP_DE_ESP32]:8080 (une fois connecté au WiFi)
 
@@ -129,6 +175,7 @@ Vous pouvez aussi accéder à l'interface web ESPHome :
 - Modifiez `esphome/esp-scanner.yaml` pour ajuster les paramètres de la caméra
 - Configurez Frigate dans `frigate/config.yml` pour la détection
 - Paramétrez Home Assistant dans `homeassistant/` pour les automatisations
+- Le service ALPR local est dans `parking-alpr/firebase_bridge.py`
 
 ## Commandes utiles
 
@@ -169,6 +216,8 @@ Alternatives pour l'ALPR :
 - Utiliser Frigate avec un modèle de détection de plaques personnalisé
 - Intégrer un service ALPR externe via API
 - Installer CodeProject.AI sur une machine séparée avec plus d'espace
+
+Le service Python local fournit aussi une base SQLite pour conserver les plaques déjà vues et dédupliquer automatiquement les passages.
 
 ## Dépannage
 
