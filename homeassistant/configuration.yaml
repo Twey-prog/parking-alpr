@@ -20,7 +20,7 @@ input_number:
   parking_total_places_firebase:
     name: Total places parking
     min: 0
-    max: 10000
+    max: 100
     step: 1
     mode: box
     initial: 100
@@ -45,7 +45,7 @@ rest_command:
     method: POST
     content_type: application/json
     payload: >-
-      {"parking_id": "{{ parking_id }}", "total": {{ total }}, "occupees": {{ occupees }}}
+      {"parking_id": "{{ parking_id }}", "total": {{ total }}{% if occupees is defined and occupees is not none %}, "occupees": {{ occupees }}{% endif %}}
 
   firebase_parking_notification:
     url: !secret firebase_parking_notification_url
@@ -53,3 +53,29 @@ rest_command:
     content_type: application/json
     payload: >-
       {"parking_id": "{{ parking_id }}", "taux": {{ taux }}}
+
+  alpr_plate_scan:
+    url: !secret alpr_plate_service_url
+    method: POST
+    content_type: application/json
+    payload: >-
+      {"parking_id": "p1", "plate": "{{ plate }}", "source": "homeassistant"}
+
+rest:
+  - resource: !secret alpr_parking_state_url
+    scan_interval: 5
+    sensor:
+      - name: Parking ALPR state
+        unique_id: parking_alpr_state
+        value_template: "{{ value_json.state.occupees if value_json.state is defined else value_json.occupees }}"
+        json_attributes_path: "$.state"
+        json_attributes:
+          - parking_id
+          - total
+          - occupees
+          - free
+          - taux
+          - plate_count
+          - last_plate
+          - last_event
+          - updated_at

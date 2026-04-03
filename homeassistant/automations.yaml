@@ -1,1 +1,80 @@
-[]
+- alias: Synchroniser la capacité du parking ALPR au démarrage
+  id: alpr_sync_total_on_start
+  mode: single
+  trigger:
+    - platform: homeassistant
+      event: start
+  action:
+    - service: rest_command.firebase_parking_disponibilite
+      data:
+        parking_id: "p1"
+        total: "{{ states('input_number.parking_total_places_firebase') | int }}"
+
+- alias: Enregistrer une plaque ALPR reçue par webhook
+  id: alpr_scan_plate_from_webhook
+  mode: queued
+  trigger:
+    - platform: webhook
+      webhook_id: alpr_p1_plate
+      allowed_methods:
+        - POST
+      local_only: false
+  condition:
+    - condition: template
+      value_template: "{{ trigger.json is defined and trigger.json.plate is defined and (trigger.json.plate | string | trim | length > 0) }}"
+  action:
+    - service: rest_command.alpr_plate_scan
+      data:
+        parking_id: "p1"
+        plate: "{{ trigger.json.plate | string | trim | upper }}"
+
+- alias: Mettre a jour la capacite ALPR quand le total change
+  id: alpr_sync_total_on_change
+  mode: single
+  trigger:
+    - platform: state
+      entity_id: input_number.parking_total_places_firebase
+  condition:
+    - condition: template
+      value_template: "{{ trigger.to_state.state not in ['unknown', 'unavailable', 'None', ''] }}"
+  action:
+    - service: rest_command.firebase_parking_disponibilite
+      data:
+        parking_id: "p1"
+        total: "{{ trigger.to_state.state | int }}"
+
+- alias: Synchroniser les compteurs ALPR depuis la base locale
+  id: alpr_sync_helpers_from_state
+  mode: queued
+  trigger:
+    - platform: state
+      entity_id: sensor.parking_alpr_state
+  condition:
+    - condition: template
+      value_template: "{{ trigger.to_state.state not in ['unknown', 'unavailable', 'None', ''] }}"
+  action:
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.parking_places_occupees_firebase
+      data:
+        value: "{{ trigger.to_state.state | int }}"
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.parking_taux_firebase
+      data:
+        value: "{{ state_attr('sensor.parking_alpr_state', 'taux') | int }}"
+
+- alias: Notifier parking plein 90%
+  id: notify_parking_full_90_percent
+  mode: single
+  trigger:
+    - platform: state
+      entity_id: sensor.parking_alpr_state
+  condition:
+    - condition: template
+      value_template: "{{ state_attr('sensor.parking_alpr_state', 'taux') | int(0) >= 90 }}"
+  action:
+    - service: rest_command.firebase_parking_notification
+      data:
+        parking_id: "p1"
+        taux: "{{ state_attr('sensor.parking_alpr_state', 'taux') | int }}"
