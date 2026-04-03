@@ -5,27 +5,26 @@ mqtt:
 
 # Caméras - ESP32-CAM
 cameras:
-  parking_camera:
+  parking_camera_178:
     enabled: true
     ffmpeg:
       hwaccel_args: -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -hwaccel_output_format yuv420p
       input_args: preset-http-mjpeg
       
       inputs:
-        - path: http://10.211.109.178:8080
-          input_args: -re
+        - path: http://10.246.52.178:8080
+          input_args: -re          
           roles:
             - detect
             - record
     detect:
-      width: 640
-      height: 480
-      fps: 5
+      width: 800
+      height: 600
+      fps: 4
       enabled: true
     objects:
       track:
         - car
-        - person
     record:
       enabled: true
       retain:
@@ -36,5 +35,32 @@ cameras:
       retain:
         default: 7
 
-# Configuration minimale de démarrage
-# Après avoir flashé l'ESP32-CAM, ajoutez sa caméra dans la section "cameras" ci-dessus
+  parking_camera_20:
+    enabled: true
+    ffmpeg:
+      hwaccel_args: -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -hwaccel_output_format yuv420p
+      input_args: preset-http-mjpeg
+      
+      inputs:
+        - path: http://10.246.52.20:8080
+          input_args: -re          
+          roles:
+            - detect
+            - record
+    detect:
+      width: 800
+      height: 600
+      fps: 4
+      enabled: true
+    objects:
+      track:
+        - car
+    record:
+      enabled: true
+      retain:
+        days: 7
+        mode: motion
+    snapshots:
+      enabled: true
+      retain:
+        default: 7

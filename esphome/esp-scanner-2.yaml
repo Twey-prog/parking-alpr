@@ -145,8 +145,8 @@ esp32_camera:
   power_down_pin: GPIO32
 
   resolution: 640x480
-  jpeg_quality: 10
-  max_framerate: 10 fps
+  jpeg_quality: 15
+  max_framerate: 5 fps
   idle_framerate: 0.1 fps
 
   vertical_flip: true
